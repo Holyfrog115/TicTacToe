@@ -1,13 +1,8 @@
 function Gameboard() {
-    let board = [-1, -1, -1,
-                 -1, -1, -1,
-                 -1, -1, -1
-    ];
+    let board = new Array(9);
 
     const resetBoard = () => {
-        for (let i = 0; i < 9; i++) {
-            board.push(-1);
-        }
+        board.fill(-1);
     }
 
     const printBoard = () => {
@@ -44,7 +39,7 @@ function Gameboard() {
         // Diagonal winner check
         if (!isWinned) {
             const diagonal1 = (board[0] != -1 && (board[0] === board[4] && board[4] === board[8]));
-            const diagonal2 = (board[0] != -1 && (board[2] === board[4] && board[4] === board[6]));
+            const diagonal2 = (board[2] != -1 && (board[2] === board[4] && board[4] === board[6]));
             if (diagonal1 || diagonal2) {
                 isWinned = 1;
             }
@@ -130,6 +125,7 @@ const game = (function () {
     }
 
     const startRound = () => {
+        board.resetBoard();
         board.printBoard();
 
         while (board.checkGameStatus() == 0) {
@@ -138,11 +134,13 @@ const game = (function () {
             } while ((playerChoice < 0 || playerChoice > 8) || board.changeCell(1, playerChoice) != 0);
 
             if (board.checkGameStatus() != 0) {
+                console.log("--------------------------------");
+                board.printBoard();
                 break;
             }
 
             botLogic();
-
+            console.log("--------------------------------");
             board.printBoard();
         }
     }
