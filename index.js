@@ -68,3 +68,21 @@ function Gameboard() {
         checkGameStatus,
     };
 }
+
+
+function Player(name = "Bot", side = 0) {
+    let score = 0;
+
+    const getSide = () => side;
+    const changeSide = () => {
+        if (side === 0) {
+            side = 1;
+        }
+        else {
+            side = 0;
+        }
+    }
+
+    const getScore = () => score;
+    const increaseScore = () => {score++};
+}
