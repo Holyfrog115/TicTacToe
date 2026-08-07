@@ -114,7 +114,7 @@ const game = (function () {
     const player = Player("Gigglebus", 1);
     const bot = Player();
 
-    let activePlayer = 1;
+    let activePlayer;
     let playerChoice;
     let botChoice;
 
@@ -124,11 +124,25 @@ const game = (function () {
         } while (board.changeCell(0, botChoice) != 0);
     }
 
+    const printWinner = () => {
+        if (activePlayer == 1) {
+            player.increaseScore();
+            console.log("You Won!");
+        }
+        else {
+            bot.increaseScore();
+            console.log("You Lost!");
+        }
+        console.log("Score:");
+        console.log(`Player: ${player.getScore()} | Bot: ${bot.getScore()}`);
+    }
+
     const startRound = () => {
         board.resetBoard();
         board.printBoard();
 
         while (board.checkGameStatus() == 0) {
+            activePlayer = 1;
             do {
                 playerChoice = prompt("Choose empty cell (0-8)");
             } while ((playerChoice < 0 || playerChoice > 8) || board.changeCell(1, playerChoice) != 0);
@@ -139,10 +153,13 @@ const game = (function () {
                 break;
             }
 
+            activePlayer = 0;
             botLogic();
             console.log("--------------------------------");
             board.printBoard();
         }
+
+        printWinner();
     }
 
     return {
