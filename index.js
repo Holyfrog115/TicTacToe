@@ -85,4 +85,12 @@ function Player(name = "Bot", side = 0) {
 
     const getScore = () => score;
     const increaseScore = () => {score++};
+
+    return {
+        name,
+        getSide,
+        changeSide,
+        getScore,
+        increaseScore,
+    };
 }
