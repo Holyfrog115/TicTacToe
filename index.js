@@ -1,5 +1,8 @@
 function Gameboard() {
-    let board = [];
+    let board = [-1, -1, -1,
+                 -1, -1, -1,
+                 -1, -1, -1
+    ];
 
     const resetBoard = () => {
         for (let i = 0; i < 9; i++) {
@@ -64,7 +67,7 @@ function Gameboard() {
 
     const changeCell = (side, cell) => {
         if ((cell >= 0 && cell <= 8) && (side == 0 || side == 1)) {
-            if (board[cell] != -1) {
+            if (board[cell] == -1) {
                 board[cell] = side;
                 return 0;
             }
@@ -120,19 +123,31 @@ const game = (function () {
     let playerChoice;
     let botChoice;
 
+    const botLogic = () => {
+        do {
+            botChoice = Math.floor(Math.random() * 9);
+        } while (board.changeCell(0, botChoice) != 0);
+    }
+
     const startRound = () => {
         board.printBoard();
 
-        while (board.checkGameStatus == 0) {
+        while (board.checkGameStatus() == 0) {
             do {
-                playerChoice = prompt("Choose cell (0-8)");
-            } while (playerChoice < 0 || playerChoice > 8);
+                playerChoice = prompt("Choose empty cell (0-8)");
+            } while ((playerChoice < 0 || playerChoice > 8) || board.changeCell(1, playerChoice) != 0);
 
-            if (board.checkGameStatus != 0) {
+            if (board.checkGameStatus() != 0) {
                 break;
             }
 
+            botLogic();
 
+            board.printBoard();
         }
+    }
+
+    return {
+        startRound,
     }
 })();
