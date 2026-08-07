@@ -62,6 +62,19 @@ function Gameboard() {
         return 2;
     }
 
+    const changeCell = (side, cell) => {
+        if ((cell >= 0 && cell <= 8) && (side == 0 || side == 1)) {
+            if (board[cell] != -1) {
+                board[cell] = side;
+                return 0;
+            }
+            return -1;
+        }
+        else {
+            return -1;
+        }
+    }
+
     return {
         resetBoard,
         printBoard,
@@ -94,3 +107,31 @@ function Player(name = "Bot", side = 0) {
         increaseScore,
     };
 }
+
+
+const game = (function () {
+    const board = Gameboard();
+
+    const player = Player("Gigglebus", 1);
+    const bot = Player();
+
+    let activePlayer = 1;
+    let playerChoice;
+    let botChoice;
+
+    const startRound = () => {
+        board.printBoard();
+
+        while (board.checkGameStatus == 0) {
+            do {
+                playerChoice = prompt("Choose cell (0-8)");
+            } while (playerChoice < 0 || playerChoice > 8);
+
+            if (board.checkGameStatus != 0) {
+                break;
+            }
+
+
+        }
+    }
+})();
