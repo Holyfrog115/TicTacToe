@@ -79,6 +79,7 @@ function Gameboard() {
         resetBoard,
         printBoard,
         checkGameStatus,
+        changeCell,
     };
 }
 
