@@ -64,6 +64,7 @@ h1, h2, h3, h4, h5, h6 {
   --main-clr2: #4F4789;
   --secondary-clr: #FFB17A;
   --secondary-clr2: #FCE762;
+  --secondary-clr2-hover: #ecd959;
   --white-clr: #FFFDED;
 }
 
@@ -91,8 +92,7 @@ body {
 .outer-part {
   background-color: var(--secondary-clr);
   padding: 25px;
-  padding-top: 50px;
-  height: 725px;
+  height: 750px;
 }
 
 .game {
@@ -100,6 +100,7 @@ body {
   height: 650px;
   display: grid;
   grid-template: repeat(3, 1fr) / repeat(3, 1fr);
+  margin-top: 20px;
 }
 
 .cell:nth-child(-n + 6) {
@@ -122,4 +123,21 @@ body {
 
 .cell:hover {
   background-color: var(--main-clr2);
+  cursor: pointer;
+}
+
+.top-part {
+  display: flex;
+  justify-content: space-around;
+}
+
+#new-round {
+  border-radius: 25px;
+  background-color: var(--secondary-clr2);
+  border: 0.15rem solid black;
+}
+
+#new-round:hover {
+  background-color: var(--secondary-clr2-hover);
+  cursor: pointer;
 }
