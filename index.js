@@ -39,7 +39,7 @@ function Gameboard() {
     }
 
     const checkGameStatus = () => {
-        // Checks if there is a winner or tie
+        // Checks if there is a winner or tie (1 - winned, 2 - tie)
 
         let isWinned = 0;
 
@@ -141,12 +141,11 @@ const game = (function () {
     const bot = Player();
 
     let activePlayer;
-    let playerChoice;
-    let botChoice;
+    let isGameOver = false;
 
     const botLogic = () => {
         do {
-            botChoice = Math.floor(Math.random() * 9);
+            let = botChoice = Math.floor(Math.random() * 9);
         } while (board.changeCell(0, botChoice) != 0);
     }
 
@@ -163,13 +162,31 @@ const game = (function () {
         console.log(`Player: ${player.getScore()} | Bot: ${bot.getScore()}`);
     }
 
-    const cellsClick = () => {
+    const startRound = () => {
+        isGameOver = false;
+        board.resetBoard();
+        board.printBoard();
+        
         const cells = document.querySelectorAll(".cell");
 
         cells.forEach((cell) => {
             cell.addEventListener("click", (event) => {
-                if (board.changeCell(1, event.target.dataset.id) == 0) {
-                    activePlayer = 0;
+                if (!isGameOver && board.changeCell(1, event.target.dataset.id) == 0) {
+                    activePlayer = 1;
+
+                    if (board.checkGameStatus() == 0) {
+                        activePlayer = 0;
+                        botLogic();
+
+                        if (board.checkGameStatus() != 0) {
+                            printWinner();
+                            isGameOver = true;
+                        }
+                    }
+                    else {
+                        printWinner();
+                        isGameOver = true;
+                    }
 
                     board.updateBoard();
                 }
@@ -177,34 +194,9 @@ const game = (function () {
         });
     }
 
-    const startRound = () => {
-        board.resetBoard();
-        board.printBoard();
-        
-        cellsClick();
-
-        // while (board.checkGameStatus() == 0) {
-        //     activePlayer = 1;
-        //     do {
-        //         playerChoice = prompt("Choose empty cell (0-8)");
-        //     } while ((playerChoice < 0 || playerChoice > 8) || board.changeCell(1, playerChoice) != 0);
-
-        //     if (board.checkGameStatus() != 0) {
-        //         console.log("--------------------------------");
-        //         board.printBoard();
-        //         break;
-        //     }
-
-        //     // activePlayer = 0;
-        //     // botLogic();
-            
-        //     board.printBoard();
-        // }
-
-        printWinner();
-    }
-
     return {
         startRound,
     }
 })();
+
+game.startRound();
