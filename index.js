@@ -35,6 +35,9 @@ function Gameboard() {
             else if (board[cell.dataset.id] == 0) {
                 cell.textContent = "O";
             }
+            else {
+                cell.textContent = "";
+            }
         })
     }
 
@@ -162,10 +165,23 @@ const game = (function () {
         console.log(`Player: ${player.getScore()} | Bot: ${bot.getScore()}`);
     }
 
-    const startRound = () => {
+    const startGame = () => {
         isGameOver = false;
         board.resetBoard();
         board.printBoard();
+
+        const newRoundBtn = document.querySelector("#new-round");
+        newRoundBtn.addEventListener("click", () => {
+            startRound();
+        });
+
+        startRound();
+    }
+
+    const startRound = () => {
+        isGameOver = false;
+        board.resetBoard();
+        board.updateBoard();
         
         const cells = document.querySelectorAll(".cell");
 
@@ -195,8 +211,8 @@ const game = (function () {
     }
 
     return {
-        startRound,
+        startGame,
     }
 })();
 
-game.startRound();
+game.startGame();
