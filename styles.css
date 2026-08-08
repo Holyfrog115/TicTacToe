@@ -60,37 +60,66 @@ h1, h2, h3, h4, h5, h6 {
 /* CSS RESET END */
 
 :root {
-    --main-clr: #201335;
-    --main-clr2: #4F4789;
-    --secondary-clr: #FFB17A;
-    --secondary-clr2: #FCE762;
-    --white-clr: #FFFDED;
+  --main-clr: #201335;
+  --main-clr2: #4F4789;
+  --secondary-clr: #FFB17A;
+  --secondary-clr2: #FCE762;
+  --white-clr: #FFFDED;
 }
 
 header {
-    display: flex;
-    justify-content: center;
-    padding: 20px 0;
-    margin-bottom: 2rem;
+  display: flex;
+  justify-content: center;
+  padding: 20px 0;
+  margin-bottom: 2rem;
+  color: white;
 }
 
 main {
-    display: flex;
-    justify-content: center;
+  display: flex;
+  justify-content: center;
+}
+
+body {
+  background-color: var(--main-clr2);
 }
 
 .container {
-    width: 700px;
+  width: 700px;
 }
 
 .outer-part {
-    background-color: var(--secondary-clr);
-    padding: 25px;
-    padding-top: 50px;
-    height: 725px;
+  background-color: var(--secondary-clr);
+  padding: 25px;
+  padding-top: 50px;
+  height: 725px;
 }
 
 .game {
-    background-color: var(--main-clr);
-    height: 650px
+  background-color: var(--main-clr);
+  height: 650px;
+  display: grid;
+  grid-template: repeat(3, 1fr) / repeat(3, 1fr);
+}
+
+.cell:nth-child(-n + 6) {
+  border-bottom: 1px solid white;
+}
+
+.cell:nth-child(3n + 2) {
+  border-left: 1px solid white;
+  border-right: 1px solid white;
+}
+
+.cell {
+  font-size: 3rem;
+  font-weight: bold;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.cell:hover {
+  background-color: var(--main-clr2);
 }
