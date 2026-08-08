@@ -145,6 +145,8 @@ const game = (function () {
 
     let activePlayer;
     let isGameOver = false;
+    const playerScore = document.querySelector("#player-score");
+    const botScore = document.querySelector("#bot-score");
 
     const botLogic = () => {
         do {
@@ -152,17 +154,15 @@ const game = (function () {
         } while (board.changeCell(0, botChoice) != 0);
     }
 
-    const printWinner = () => {
+    const announceWinner = () => {
         if (activePlayer == 1) {
             player.increaseScore();
-            console.log("You Won!");
+            playerScore.textContent = `Player: ${player.getScore()}`;
         }
         else {
             bot.increaseScore();
-            console.log("You Lost!");
+            botScore.textContent = `Bot: ${bot.getScore()}`;
         }
-        console.log("Score:");
-        console.log(`Player: ${player.getScore()} | Bot: ${bot.getScore()}`);
     }
 
     const startGame = () => {
@@ -195,12 +195,12 @@ const game = (function () {
                         botLogic();
 
                         if (board.checkGameStatus() != 0) {
-                            printWinner();
+                            announceWinner();
                             isGameOver = true;
                         }
                     }
                     else {
-                        printWinner();
+                        announceWinner();
                         isGameOver = true;
                     }
 
