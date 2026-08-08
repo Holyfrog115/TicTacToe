@@ -6,10 +6,23 @@ function Gameboard() {
     }
 
     const printBoard = () => {
-        // Console board
+        // DOM board
 
-        for (let i = 0; i < 9; i += 3) { 
-            console.log(board[i], board[i + 1], board[i + 2]);
+        const domBoard = document.querySelector(".game");
+        domBoard.replaceChildren();
+
+        for (let i = 0; i < 9; i++) { 
+            const cell = document.createElement("div");
+            cell.classList.add("cell");
+            cell.dataset.id = i;
+            if (board[i] == 0) {
+                cell.textContent = "O";
+            }
+            else if (board[i] == 1){
+                cell.textContent = "X";
+            }
+
+            domBoard.appendChild(cell);
         }
     }
 
