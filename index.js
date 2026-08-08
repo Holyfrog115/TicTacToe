@@ -194,12 +194,12 @@ const game = (function () {
                         activePlayer = 0;
                         botLogic();
 
-                        if (board.checkGameStatus() != 0) {
+                        if (board.checkGameStatus() == 1) {
                             announceWinner();
                             isGameOver = true;
                         }
                     }
-                    else {
+                    else if (board.checkGameStatus() == 1) {
                         announceWinner();
                         isGameOver = true;
                     }
