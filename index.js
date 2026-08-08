@@ -26,6 +26,18 @@ function Gameboard() {
         }
     }
 
+    const updateBoard = () => {
+        const cells = document.querySelectorAll(".cell");
+        cells.forEach((cell) => {
+            if (board[cell.dataset.id] == 1) {
+                cell.textContent = "X";
+            }
+            else if (board[cell.dataset.id] == 0) {
+                cell.textContent = "O";
+            }
+        })
+    }
+
     const checkGameStatus = () => {
         // Checks if there is a winner or tie
 
@@ -91,6 +103,7 @@ function Gameboard() {
         printBoard,
         checkGameStatus,
         changeCell,
+        updateBoard,
     };
 }
 
@@ -150,27 +163,43 @@ const game = (function () {
         console.log(`Player: ${player.getScore()} | Bot: ${bot.getScore()}`);
     }
 
+    const cellsClick = () => {
+        const cells = document.querySelectorAll(".cell");
+
+        cells.forEach((cell) => {
+            cell.addEventListener("click", (event) => {
+                if (board.changeCell(1, event.target.dataset.id) == 0) {
+                    activePlayer = 0;
+
+                    board.updateBoard();
+                }
+            });
+        });
+    }
+
     const startRound = () => {
         board.resetBoard();
         board.printBoard();
+        
+        cellsClick();
 
-        while (board.checkGameStatus() == 0) {
-            activePlayer = 1;
-            do {
-                playerChoice = prompt("Choose empty cell (0-8)");
-            } while ((playerChoice < 0 || playerChoice > 8) || board.changeCell(1, playerChoice) != 0);
+        // while (board.checkGameStatus() == 0) {
+        //     activePlayer = 1;
+        //     do {
+        //         playerChoice = prompt("Choose empty cell (0-8)");
+        //     } while ((playerChoice < 0 || playerChoice > 8) || board.changeCell(1, playerChoice) != 0);
 
-            if (board.checkGameStatus() != 0) {
-                console.log("--------------------------------");
-                board.printBoard();
-                break;
-            }
+        //     if (board.checkGameStatus() != 0) {
+        //         console.log("--------------------------------");
+        //         board.printBoard();
+        //         break;
+        //     }
 
-            activePlayer = 0;
-            botLogic();
-            console.log("--------------------------------");
-            board.printBoard();
-        }
+        //     // activePlayer = 0;
+        //     // botLogic();
+            
+        //     board.printBoard();
+        // }
 
         printWinner();
     }
