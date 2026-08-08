@@ -141,3 +141,8 @@ body {
   background-color: var(--secondary-clr2-hover);
   cursor: pointer;
 }
+
+#player-score, #bot-score {
+  font-weight: 600;
+  font-size: 1.2rem;;
+}
