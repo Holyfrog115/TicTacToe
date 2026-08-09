@@ -148,6 +148,10 @@ const game = (function () {
     const playerScore = document.querySelector("#player-score");
     const botScore = document.querySelector("#bot-score");
 
+    const capitalize = (string) => {
+        return string.at(0).toUpperCase() + string.slice(1);
+    }
+
     const botLogic = () => {
         do {
             let = botChoice = Math.floor(Math.random() * 9);
@@ -165,10 +169,36 @@ const game = (function () {
         }
     }
 
-    const newRoundBtn = () => {
-        const newRoundDOM = document.querySelector("#new-round");
-        newRoundDOM.addEventListener("click", () => {
+    const newRound = () => {
+        const newRoundBtn = document.querySelector("#new-round");
+        newRoundBtn.addEventListener("click", () => {
             startRound();
+        });
+    }
+
+    const changeName = () => {
+        const cancelBtn = document.querySelector('button[value="cancel"]');
+
+        const dialog = document.querySelector("#change-name-dialog");
+        const form = dialog.querySelector("form");
+        const changeNameBtn = document.querySelector("#change-name");
+
+        changeNameBtn.addEventListener("click", () => {
+            dialog.showModal();
+        });
+
+        form.addEventListener("submit", () => {
+            const playerName = document.querySelector("#player-score");
+            playerName.textContent = `${capitalize(form.elements.userName.value)}: ${player.getScore()}`;
+        });
+
+        dialog.addEventListener("close", () => {
+            form.reset();
+        });
+
+        cancelBtn.addEventListener("click", (event) => {
+            event.preventDefault();
+            dialog.close();
         });
     }
 
@@ -176,7 +206,8 @@ const game = (function () {
         isGameOver = false;
         board.resetBoard();
         board.printBoard();
-        newRoundBtn();
+        newRound();
+        changeName();
         
 
         startRound();
