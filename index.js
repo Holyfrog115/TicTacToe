@@ -6,7 +6,7 @@ function Gameboard() {
     }
 
     const printBoard = () => {
-        // DOM board
+        // Adds div elements that represent gameboard to DOM
 
         const domBoard = document.querySelector(".game");
         domBoard.replaceChildren();
@@ -89,6 +89,7 @@ function Gameboard() {
     }
 
     const changeCell = (side, cell) => {
+        // Changes cell's value to x or O if possible
         if ((cell >= 0 && cell <= 8) && (side == 0 || side == 1)) {
             if (board[cell] == -1) {
                 board[cell] = side;
@@ -148,10 +149,12 @@ const game = (function () {
     const player = Player("Player", 1);
     const bot = Player();
 
+    let tieScoreCount;
     let activePlayer;
     let isGameOver = false;
     const playerScore = document.querySelector("#player-score");
     const botScore = document.querySelector("#bot-score");
+    const tieScore = document.querySelector("#tie-score");
 
     const capitalize = (string) => {
         return string.at(0).toUpperCase() + string.slice(1).toLowerCase();
@@ -175,6 +178,7 @@ const game = (function () {
     }
 
     const newRound = () => {
+        // New round button
         const newRoundBtn = document.querySelector("#new-round");
         newRoundBtn.addEventListener("click", () => {
             startRound();
@@ -182,6 +186,7 @@ const game = (function () {
     }
 
     const changeName = () => {
+        // Opens dialog form for changing player's name 
         const cancelBtn = document.querySelector('button[value="cancel"]');
 
         const dialog = document.querySelector("#change-name-dialog");
@@ -220,6 +225,7 @@ const game = (function () {
 
     const startGame = () => {
         isGameOver = false;
+        tieScoreCount = 0;
         board.resetBoard();
         board.printBoard();
         newRound();
@@ -227,6 +233,7 @@ const game = (function () {
         changeSide();
         playerScore.textContent = `${player.getName()}: ${player.getScore()}`;
         botScore.textContent = `${bot.getName()}: ${bot.getScore()}`;
+        tieScore.textContent = `Tie: ${tieScoreCount}`
         
 
         startRound();
@@ -237,6 +244,7 @@ const game = (function () {
         board.resetBoard();
         board.updateBoard();
 
+        // Bot gets 1st turn if he's side is X
         if (bot.getSide() == 1) {
             botLogic();
             board.updateBoard();
@@ -246,20 +254,36 @@ const game = (function () {
 
         cells.forEach((cell) => {
             cell.addEventListener("click", (event) => {
+                // Player turn
                 if (!isGameOver && board.changeCell(player.getSide(), event.target.dataset.id) == 0) {
                     activePlayer = 1;
 
                     if (board.checkGameStatus() == 0) {
+                        // Bot turn
                         activePlayer = 0;
                         botLogic();
 
                         if (board.checkGameStatus() == 1) {
+                            // Bot win
                             announceWinner();
+                            isGameOver = true;
+                        }
+                        else if (board.checkGameStatus() == 2) {
+                            // Tie
+                            tieScoreCount++;
+                            tieScore.textContent = `Tie: ${tieScoreCount}`;
                             isGameOver = true;
                         }
                     }
                     else if (board.checkGameStatus() == 1) {
+                        // Player win
                         announceWinner();
+                        isGameOver = true;
+                    }
+                    else {
+                        // Tie
+                        tieScoreCount++;
+                        tieScore.textContent = `Tie: ${tieScoreCount}`;
                         isGameOver = true;
                     }
 
