@@ -25,7 +25,7 @@
                     </div>
                     <div class="btn-group">
                         <button id="change-name">Change Name</button>
-                        <button id="change side">Change Side</button>
+                        <button id="change-side">Change Side</button>
                     </div>
                 </div>
                 <div class="game">
@@ -39,11 +39,11 @@
 
                 <div class="input-group">
                     <label for="user-name">Player name:</label>
-                    <input type="text" name="userName" id="user-name">
+                    <input type="text" name="userName" id="user-name" minlength="2" maxlength="6" pattern="[A-Za-z]+" title="Only letters are allowed" required>
                 </div>
 
                 <div class="btn-group">
-                    <button value="cancel">Cancel</button>
+                    <button value="cancel" formmethod="dialog">Cancel</button>
                     <button value="confirm">Confirm</button>
                 </div>
             </form>
