@@ -128,22 +128,39 @@ body {
 }
 
 .top-part {
-  display: flex;
-  justify-content: space-around;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
 }
 
 #new-round {
   border-radius: 25px;
   background-color: var(--secondary-clr2);
-  border: 0.15rem solid black;
+  border: 2px solid black;
 }
 
-#new-round:hover {
+#new-round:hover, .btn-group button:hover {
   background-color: var(--secondary-clr2-hover);
   cursor: pointer;
 }
 
-#player-score, #bot-score {
+#player-score, #tie-score, #bot-score {
   font-weight: 600;
   font-size: 1.2rem;;
+}
+
+.scores, .new-round-btn, .btn-group {
+  display: flex;
+  align-items: center;
+}
+
+.scores, .btn-group {
+  justify-content: space-around;
+}
+
+.new-round-btn {
+  justify-content: center;
+}
+
+.btn-group button {
+  background-color: var(--secondary-clr2);
 }
