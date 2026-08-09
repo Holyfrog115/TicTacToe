@@ -211,8 +211,6 @@ const game = (function () {
         const changeSideBtn = document.querySelector("#change-side");
 
         changeSideBtn.addEventListener("click", (event) => {
-            // Code for changing side
-
             player.changeSide();
             bot.changeSide();
 
