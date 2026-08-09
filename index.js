@@ -165,15 +165,19 @@ const game = (function () {
         }
     }
 
+    const newRoundBtn = () => {
+        const newRoundDOM = document.querySelector("#new-round");
+        newRoundDOM.addEventListener("click", () => {
+            startRound();
+        });
+    }
+
     const startGame = () => {
         isGameOver = false;
         board.resetBoard();
         board.printBoard();
-
-        const newRoundBtn = document.querySelector("#new-round");
-        newRoundBtn.addEventListener("click", () => {
-            startRound();
-        });
+        newRoundBtn();
+        
 
         startRound();
     }
