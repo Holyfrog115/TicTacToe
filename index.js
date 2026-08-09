@@ -149,7 +149,7 @@ const game = (function () {
     const botScore = document.querySelector("#bot-score");
 
     const capitalize = (string) => {
-        return string.at(0).toUpperCase() + string.slice(1);
+        return string.at(0).toUpperCase() + string.slice(1).toLowerCase();
     }
 
     const botLogic = () => {
