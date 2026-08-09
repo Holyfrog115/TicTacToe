@@ -164,3 +164,34 @@ body {
 .btn-group button {
   background-color: var(--secondary-clr2);
 }
+
+#change-name-dialog {
+  background-color: var(--secondary-clr);
+  border: 8px outset var(--white-clr);
+}
+
+#change-name-dialog form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+#change-name-dialog form input {
+  background-color: var(--main-clr2);
+  color: var(--white-clr);
+}
+
+#change-name-dialog form input:focus {
+  outline: 2px solid var(--main-clr);
+}
+
+#change-name-dialog form input::selection {
+  background-color: var(--secondary-clr2);
+  color: var(--main-clr);
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
