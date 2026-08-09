@@ -126,9 +126,14 @@ function Player(name = "Bot", side = 0) {
 
     const getScore = () => score;
     const increaseScore = () => {score++};
+    const getName = () => name;
+    const changeName = (newName) => {
+        name = newName;
+    }
 
     return {
-        name,
+        getName,
+        changeName,
         getSide,
         changeSide,
         getScore,
@@ -140,7 +145,7 @@ function Player(name = "Bot", side = 0) {
 const game = (function () {
     const board = Gameboard();
 
-    const player = Player("Gigglebus", 1);
+    const player = Player("Player", 1);
     const bot = Player();
 
     let activePlayer;
@@ -161,11 +166,11 @@ const game = (function () {
     const announceWinner = () => {
         if (activePlayer == 1) {
             player.increaseScore();
-            playerScore.textContent = `Player: ${player.getScore()}`;
+            playerScore.textContent = `${player.getName()}: ${player.getScore()}`;
         }
         else {
             bot.increaseScore();
-            botScore.textContent = `Bot: ${bot.getScore()}`;
+            botScore.textContent = `${bot.getName()}: ${bot.getScore()}`;
         }
     }
 
@@ -188,8 +193,8 @@ const game = (function () {
         });
 
         form.addEventListener("submit", () => {
-            const playerName = document.querySelector("#player-score");
-            playerName.textContent = `${capitalize(form.elements.userName.value)}: ${player.getScore()}`;
+            player.changeName(`${capitalize(form.elements.userName.value)}`);
+            playerScore.textContent = `${player.getName()}: ${player.getScore()}`;
         });
 
         dialog.addEventListener("close", () => {
@@ -208,6 +213,8 @@ const game = (function () {
         board.printBoard();
         newRound();
         changeName();
+        playerScore.textContent = `${player.getName()}: ${player.getScore()}`;
+        botScore.textContent = `${bot.getName()}: ${bot.getScore()}`;
         
 
         startRound();
