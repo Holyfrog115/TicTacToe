@@ -160,7 +160,7 @@ const game = (function () {
     const botLogic = () => {
         do {
             let = botChoice = Math.floor(Math.random() * 9);
-        } while (board.changeCell(0, botChoice) != 0);
+        } while (board.changeCell(bot.getSide(), botChoice) != 0);
     }
 
     const announceWinner = () => {
@@ -207,12 +207,26 @@ const game = (function () {
         });
     }
 
+    const changeSide = () => {
+        const changeSideBtn = document.querySelector("#change-side");
+
+        changeSideBtn.addEventListener("click", (event) => {
+            // Code for changing side
+
+            player.changeSide();
+            bot.changeSide();
+
+            startRound();
+        });
+    }
+
     const startGame = () => {
         isGameOver = false;
         board.resetBoard();
         board.printBoard();
         newRound();
         changeName();
+        changeSide();
         playerScore.textContent = `${player.getName()}: ${player.getScore()}`;
         botScore.textContent = `${bot.getName()}: ${bot.getScore()}`;
         
@@ -224,12 +238,17 @@ const game = (function () {
         isGameOver = false;
         board.resetBoard();
         board.updateBoard();
+
+        if (bot.getSide() == 1) {
+            botLogic();
+            board.updateBoard();
+        }
         
         const cells = document.querySelectorAll(".cell");
 
         cells.forEach((cell) => {
             cell.addEventListener("click", (event) => {
-                if (!isGameOver && board.changeCell(1, event.target.dataset.id) == 0) {
+                if (!isGameOver && board.changeCell(player.getSide(), event.target.dataset.id) == 0) {
                     activePlayer = 1;
 
                     if (board.checkGameStatus() == 0) {
