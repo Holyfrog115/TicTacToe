@@ -346,4 +346,30 @@ const game = (function () {
     }
 })();
 
+function switchingModes() {
+    let lightmode = localStorage.getItem("lightmode");
+    const switchBtn = document.querySelector("#mode-switch");
+
+    const enableLightMode = () => {
+        document.body.classList.add("lightmode");
+        localStorage.setItem("lightmode", "active");
+    }
+
+    const disableLightMode = () => {
+        document.body.classList.remove("lightmode");
+        localStorage.setItem("lightmode", null);
+    }
+
+    if (lightmode === "active") {
+        enableLightMode();
+    }
+
+    switchBtn.addEventListener("click", () => {
+        lightmode = localStorage.getItem("lightmode");
+        lightmode !== "active" ? enableLightMode() : disableLightMode();
+    })
+
+}
+
+switchingModes();
 game.startGame();
