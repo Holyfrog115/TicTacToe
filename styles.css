@@ -72,21 +72,42 @@ h1, h2, h3, h4, h5, h6 {
   --lose-clr-hover: #ae1f12bb;
   --tie-clr: #36213e;
   --tie-clr-hover: #36213ebb;
+  --cell-hover: #4F4789;
 }
 
 .lightmode {
-  --main-clr: #F7FFF7;
-  --main-clr2: #4ECDC4;
-  --secondary-clr: #FF6B6B;
-  --secondary-clr2: #FFE66D;
-  --secondary-clr2-hover: #eed765;
+  --main-clr: #f9f7f3;
+  --main-clr2: #b5e2fa;
+  --secondary-clr: #ff9500;
+  --secondary-clr2: #f7a072;
+  --secondary-clr2-hover: #ffdab9;
   --cell-clr: #000000;
-  --win-clr: #6a994e;
-  --win-clr-hover: #6a994ebb;
-  --lose-clr: #ae2012;
-  --lose-clr-hover: #ae1f12bb;
-  --tie-clr: #36213e;
-  --tie-clr-hover: #36213ebb;
+  --win-clr: #a7c957;
+  --win-clr-hover: #96b64d;
+  --lose-clr: #e5383b;
+  --lose-clr-hover: #d43335;
+  --tie-clr: rgba(0, 0, 0, 0.1);
+  --tie-clr-hover: #c6c7c4;
+  --cell-hover: rgba(0, 0, 0, 0.1);
+}
+
+#light-icon {
+  display: none;
+}
+
+.lightmode #light-icon {
+  display: block;
+}
+
+.lightmode #mode-switch:hover {
+  background-color: #201335;
+  fill: #FCE762;
+  border: #FCE762;
+  box-shadow: 0px 0px 10px #201335; 
+}
+
+.lightmode #dark-icon {
+  display: none;
 }
 
 header {
@@ -175,7 +196,7 @@ body {
 }
 
 .cell:hover {
-  background-color: var(--main-clr2);
+  background-color: var(--cell-hover);
   cursor: pointer;
 }
 
@@ -230,7 +251,7 @@ body {
 
 #change-name-dialog form input {
   background-color: var(--main-clr2);
-  color: white;
+  color: var(--cell-clr);
 }
 
 #change-name-dialog form input:focus {
