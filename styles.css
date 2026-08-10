@@ -156,6 +156,7 @@ main {
 
 body {
   background-color: var(--main-clr2);
+  font-family: "Roboto", Arial, Helvetica, sans-serif;
 }
 
 .container {
@@ -218,7 +219,7 @@ body {
 
 #player-score, #tie-score, #bot-score {
   font-weight: 600;
-  font-size: 1.2rem;;
+  font-size: 1.1rem;
 }
 
 .scores, .new-round-btn, .btn-group {
@@ -232,10 +233,12 @@ body {
 
 .new-round-btn {
   justify-content: center;
+  font-size: 20px;
 }
 
 .btn-group button {
   background-color: var(--secondary-clr2);
+  font-size: 14px;
 }
 
 #change-name-dialog {
