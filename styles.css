@@ -113,7 +113,7 @@ h1, h2, h3, h4, h5, h6 {
 header {
   display: flex;
   justify-content: center;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
   color: var(--cell-clr);
   padding: 10px 0;
 }
