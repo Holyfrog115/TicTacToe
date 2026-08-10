@@ -64,7 +64,7 @@ function Gameboard() {
     const movesToWin = (side) => {
 
         // Horizontal check
-        
+
         for (let i = 0; i < 9; i += 3) { 
             if (board[i + 2] == -1 && board[i] == side && board[i] == board[i + 1]) {
                 return i + 2;
@@ -112,6 +112,8 @@ function Gameboard() {
         if (board[2] == -1 && board[4] == side && board[4] == board[6]) {
             return 2;
         }
+
+        return -1
     };
 
     const checkGameStatus = (playerSide) => {
@@ -209,6 +211,7 @@ function Gameboard() {
         checkGameStatus,
         changeCell,
         updateBoard,
+        movesToWin,
     };
 }
 
@@ -262,14 +265,21 @@ const game = (function () {
     }
 
     const botMove = () => {
-        if (board.changeCell(bot.getSide(), 4) != 0) {
+        const botWinMove = board.movesToWin(bot.getSide());
+        const playerWinMove = board.movesToWin(player.getSide());
+
+        if (botWinMove != -1) {
+            board.changeCell(bot.getSide(), botWinMove);
+            return 0;
+        }
+        if (playerWinMove != -1 && Math.floor(Math.random() * 3) < 2) {
+            board.changeCell(bot.getSide(), playerWinMove);
+            return 0;
+        }
+        if (Math.floor(Math.random() * 2) == 1 && board.changeCell(bot.getSide(), 4) == 0) {
             return 0;
         }
 
-
-
-
-        
         do {
             let = botChoice = Math.floor(Math.random() * 9);
         } while (board.changeCell(bot.getSide(), botChoice) != 0);
