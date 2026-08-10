@@ -65,7 +65,22 @@ h1, h2, h3, h4, h5, h6 {
   --secondary-clr: #FFB17A;
   --secondary-clr2: #FCE762;
   --secondary-clr2-hover: #ecd959;
-  --white-clr: #FFFDED;
+  --cell-clr: #ffffff;
+  --win-clr: #6a994e;
+  --win-clr-hover: #6a994ebb;
+  --lose-clr: #ae2012;
+  --lose-clr-hover: #ae1f12bb;
+  --tie-clr: #36213e;
+  --tie-clr-hover: #36213ebb;
+}
+
+.lightmode {
+  --main-clr: #F7FFF7;
+  --main-clr2: #4ECDC4;
+  --secondary-clr: #FF6B6B;
+  --secondary-clr2: #FFE66D;
+  --secondary-clr2-hover: #eed765;
+  --cell-clr: #000000;
   --win-clr: #6a994e;
   --win-clr-hover: #6a994ebb;
   --lose-clr: #ae2012;
@@ -78,8 +93,32 @@ header {
   display: flex;
   justify-content: center;
   margin-bottom: 2rem;
-  color: white;
+  color: var(--cell-clr);
   padding: 10px 0;
+}
+
+#mode-switch {
+  background-color: var(--main-clr);
+  border: 2px solid var(--secondary-clr);
+  box-shadow: 0px 0px 10px var(--secondary-clr);
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 20px;
+  right: 50px;
+  fill: var(--secondary-clr);
+}
+
+#mode-switch:hover {
+  cursor: pointer;
+  background-color: var(--secondary-clr2);
+  fill: var(--main-clr);
+  border: var(--main-clr);
+  box-shadow: 0px 0px 10px var(--secondary-clr2);
 }
 
 header h1 {
@@ -117,18 +156,18 @@ body {
 }
 
 .cell:nth-child(-n + 6) {
-  border-bottom: 1px solid white;
+  border-bottom: 1px solid var(--cell-clr);
 }
 
 .cell:nth-child(3n + 2) {
-  border-left: 1px solid white;
-  border-right: 1px solid white;
+  border-left: 1px solid var(--cell-clr);
+  border-right: 1px solid var(--cell-clr);
 }
 
 .cell {
   font-size: 3rem;
   font-weight: bold;
-  color: white;
+  color: var(--cell-clr);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -180,7 +219,7 @@ body {
 
 #change-name-dialog {
   background-color: var(--secondary-clr);
-  border: 8px outset var(--white-clr);
+  border: 8px outset white;
 }
 
 #change-name-dialog form {
@@ -191,7 +230,7 @@ body {
 
 #change-name-dialog form input {
   background-color: var(--main-clr2);
-  color: var(--white-clr);
+  color: white;
 }
 
 #change-name-dialog form input:focus {
