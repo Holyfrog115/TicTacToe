@@ -208,7 +208,7 @@ const game = (function () {
         return string.at(0).toUpperCase() + string.slice(1).toLowerCase();
     }
 
-    const botLogic = () => {
+    const botMove = () => {
         do {
             let = botChoice = Math.floor(Math.random() * 9);
         } while (board.changeCell(bot.getSide(), botChoice) != 0);
@@ -294,7 +294,7 @@ const game = (function () {
 
         // Bot gets 1st turn if he's side is X
         if (bot.getSide() == 1) {
-            botLogic();
+            botMove();
             board.updateBoard();
         }
         
@@ -309,7 +309,7 @@ const game = (function () {
                     if (board.checkGameStatus(player.getSide()) == 0) {
                         // Bot turn
                         activePlayer = 0;
-                        botLogic();
+                        botMove();
 
                         if (board.checkGameStatus(player.getSide()) == 1) {
                             // Bot win
