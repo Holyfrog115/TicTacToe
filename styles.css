@@ -77,9 +77,17 @@ h1, h2, h3, h4, h5, h6 {
 header {
   display: flex;
   justify-content: center;
-  padding: 20px 0;
   margin-bottom: 2rem;
   color: white;
+  padding: 10px 0;
+}
+
+header h1 {
+  background-color: var(--main-clr);
+  padding: 10px;
+  border: 2px solid var(--secondary-clr);
+  text-shadow: 0px 0px 3px var(--secondary-clr);
+  box-shadow: 0px 0px 10px var(--secondary-clr);
 }
 
 main {
@@ -99,6 +107,7 @@ body {
   background-color: var(--secondary-clr);
   padding: 25px;
   height: 750px;
+  box-shadow: 0px 0px 5px var(--secondary-clr);
 }
 
 .game {
