@@ -9,7 +9,7 @@ function Gameboard() {
             cell.classList.remove("lose");
             cell.classList.remove("tie");
         });
-    }
+    };
 
     const printBoard = () => {
         // Adds div elements that represent gameboard to DOM
@@ -30,7 +30,7 @@ function Gameboard() {
 
             domBoard.appendChild(cell);
         }
-    }
+    };
 
     const updateBoard = () => {
         const cells = document.querySelectorAll(".cell");
@@ -45,7 +45,7 @@ function Gameboard() {
                 cell.textContent = "";
             }
         });
-    }
+    };
 
     const changeCellColor = (playerSide, cell) => {
         // Changes cells color in case of win/lose
@@ -57,9 +57,62 @@ function Gameboard() {
             cell.classList.add("win");
         }
         else {
-            cell.classList.add("lose")
+            cell.classList.add("lose");
         }
-    }
+    };
+
+    const movesToWin = (side) => {
+
+        // Horizontal check
+        
+        for (let i = 0; i < 9; i += 3) { 
+            if (board[i + 2] == -1 && board[i] == side && board[i] == board[i + 1]) {
+                return i + 2;
+            }
+            if (board[i + 1] == -1 && board[i] == side && board[i] == board[i + 2]) {
+                return i + 1;
+            }
+            if (board[i] == -1 && board[i + 1] == side && board[i + 1] == board[i + 2]) {
+                return i;
+            }
+        }
+
+        // Vertical check
+
+        for (let i = 0; i < 3; i++) {
+            if (board[i + 6] == -1 && board[i] == side && board[i] == board[i + 3]) {
+                return i + 6;
+            }
+            if (board[i + 3] == -1 && board[i] == side && board[i] == board[i + 6]) {
+                return i + 3;
+            }
+            if (board[i] == -1 && board[i + 3] == side && board[i + 3] == board[i + 6]) {
+                return i;
+            }
+        }
+
+        // Diagonal check
+
+        if (board[8] == -1 && board[0] == side && board[0] == board[4]) {
+            return 8;
+        }
+        if (board[4] == -1 && board[0] == side && board[0] == board[8]) {
+            return 4;
+        }
+        if (board[0] == -1 && board[4] == side && board[4] == board[8]) {
+            return 0;
+        } 
+
+        if (board[6] == -1 && board[2] == side && board[2] == board[4]) {
+            return 6;
+        }
+        if (board[4] == -1 && board[2] == side && board[2] == board[6]) {
+            return 4;
+        }
+        if (board[2] == -1 && board[4] == side && board[4] == board[6]) {
+            return 2;
+        }
+    };
 
     const checkGameStatus = (playerSide) => {
         // Checks if there is a winner or tie (1 - winned, 2 - tie)
@@ -134,7 +187,7 @@ function Gameboard() {
         });
 
         return 2;
-    }
+    };
 
     const changeCell = (side, cell) => {
         // Changes cell's value to x or O if possible
@@ -148,7 +201,7 @@ function Gameboard() {
         else {
             return -1;
         }
-    }
+    };
 
     return {
         resetBoard,
@@ -209,6 +262,14 @@ const game = (function () {
     }
 
     const botMove = () => {
+        if (board.changeCell(bot.getSide(), 4) != 0) {
+            return 0;
+        }
+
+
+
+
+        
         do {
             let = botChoice = Math.floor(Math.random() * 9);
         } while (board.changeCell(bot.getSide(), botChoice) != 0);
