@@ -66,6 +66,12 @@ h1, h2, h3, h4, h5, h6 {
   --secondary-clr2: #FCE762;
   --secondary-clr2-hover: #ecd959;
   --white-clr: #FFFDED;
+  --win-clr: #6a994e;
+  --win-clr-hover: #6a994ebb;
+  --lose-clr: #ae2012;
+  --lose-clr-hover: #ae1f12bb;
+  --tie-clr: #36213e;
+  --tie-clr-hover: #36213ebb;
 }
 
 header {
@@ -198,4 +204,28 @@ body {
 
 button {
   user-select: none;
+}
+
+.win {
+  background-color: var(--win-clr);
+}
+
+.win:hover {
+  background-color: var(--win-clr-hover);
+}
+
+.lose {
+  background-color: var(--lose-clr);
+}
+
+.lose:hover {
+  background-color: var(--lose-clr-hover);
+}
+
+.tie {
+  background-color: var(--tie-clr);
+}
+
+.tie:hover {
+  background-color: var(--tie-clr-hover);
 }
