@@ -268,14 +268,17 @@ const game = (function () {
         const botWinMove = board.movesToWin(bot.getSide());
         const playerWinMove = board.movesToWin(player.getSide());
 
+        // If bot can win
         if (botWinMove != -1) {
             board.changeCell(bot.getSide(), botWinMove);
             return 0;
         }
+        // If player can win
         if (playerWinMove != -1 && Math.floor(Math.random() * 3) < 2) {
             board.changeCell(bot.getSide(), playerWinMove);
             return 0;
         }
+        // If center is free
         if (Math.floor(Math.random() * 2) == 1 && board.changeCell(bot.getSide(), 4) == 0) {
             return 0;
         }
