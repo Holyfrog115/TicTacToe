@@ -86,7 +86,6 @@ header h1 {
   background-color: var(--main-clr);
   padding: 10px;
   border: 2px solid var(--secondary-clr);
-  text-shadow: 0px 0px 3px var(--secondary-clr);
   box-shadow: 0px 0px 10px var(--secondary-clr);
 }
 
@@ -107,7 +106,6 @@ body {
   background-color: var(--secondary-clr);
   padding: 25px;
   height: 750px;
-  box-shadow: 0px 0px 5px var(--secondary-clr);
 }
 
 .game {
