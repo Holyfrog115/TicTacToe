@@ -3,6 +3,12 @@ function Gameboard() {
 
     const resetBoard = () => {
         board.fill(-1);
+        const cells = document.querySelectorAll(".cell");
+        cells.forEach((cell) => {
+            cell.classList.remove("win");
+            cell.classList.remove("lose");
+            cell.classList.remove("tie");
+        });
     }
 
     const printBoard = () => {
@@ -38,18 +44,38 @@ function Gameboard() {
             else {
                 cell.textContent = "";
             }
-        })
+        });
     }
 
-    const checkGameStatus = () => {
+    const changeCellColor = (playerSide, cell) => {
+        // Changes cells color in case of win/lose
+
+        if (playerSide == 1 && board[cell.dataset.id] == 1) {
+            cell.classList.add("win");
+        }
+        else if (playerSide == 0 && board[cell.dataset.id] == 0) {
+            cell.classList.add("win");
+        }
+        else {
+            cell.classList.add("lose")
+        }
+    }
+
+    const checkGameStatus = (playerSide) => {
         // Checks if there is a winner or tie (1 - winned, 2 - tie)
 
         let isWinned = 0;
+        const cells = document.querySelectorAll(".cell");
 
         // Horizontal winner check
         for (let i = 0; i < 9; i += 3) { 
             if (board[i] != -1 && (board[i] === board[i + 1] && board[i + 1] === board[i + 2])) {
                 isWinned = 1;
+                cells.forEach((cell) => {
+                    if (cell.dataset.id == i || cell.dataset.id == i + 1 || cell.dataset.id == i + 2) {
+                        changeCellColor(playerSide, cell);
+                    } 
+                });
                 break;
             }
         }
@@ -59,6 +85,11 @@ function Gameboard() {
             for (let i = 0; i < 3; i++) {
                 if (board[i] != -1 && (board[i] === board[i + 3] && board[i + 3] === board[i + 6])) {
                     isWinned = 1;
+                    cells.forEach((cell) => {
+                        if (cell.dataset.id == i || cell.dataset.id == i + 3 || cell.dataset.id == i + 6) {
+                            changeCellColor(playerSide, cell);
+                        } 
+                    });
                     break;
                 }
             }
@@ -68,8 +99,21 @@ function Gameboard() {
         if (!isWinned) {
             const diagonal1 = (board[0] != -1 && (board[0] === board[4] && board[4] === board[8]));
             const diagonal2 = (board[2] != -1 && (board[2] === board[4] && board[4] === board[6]));
-            if (diagonal1 || diagonal2) {
+            if (diagonal1) {
                 isWinned = 1;
+                cells.forEach((cell) => {
+                    if (cell.dataset.id == 0 || cell.dataset.id == 4 || cell.dataset.id == 8) {
+                        changeCellColor(playerSide, cell);
+                    } 
+                });
+            }
+            else if (diagonal2) {
+                isWinned = 1;
+                cells.forEach((cell) => {
+                    if (cell.dataset.id == 2 || cell.dataset.id == 4 || cell.dataset.id == 6) {
+                        changeCellColor(playerSide, cell);
+                    } 
+                });
             }
         }
 
@@ -84,6 +128,10 @@ function Gameboard() {
                 return 0;
             }
         }
+
+        cells.forEach((cell) => {
+            cell.classList.add("tie");
+        });
 
         return 2;
     }
@@ -258,24 +306,24 @@ const game = (function () {
                 if (!isGameOver && board.changeCell(player.getSide(), event.target.dataset.id) == 0) {
                     activePlayer = 1;
 
-                    if (board.checkGameStatus() == 0) {
+                    if (board.checkGameStatus(player.getSide()) == 0) {
                         // Bot turn
                         activePlayer = 0;
                         botLogic();
 
-                        if (board.checkGameStatus() == 1) {
+                        if (board.checkGameStatus(player.getSide()) == 1) {
                             // Bot win
                             announceWinner();
                             isGameOver = true;
                         }
-                        else if (board.checkGameStatus() == 2) {
+                        else if (board.checkGameStatus(player.getSide()) == 2) {
                             // Tie
                             tieScoreCount++;
                             tieScore.textContent = `Tie: ${tieScoreCount}`;
                             isGameOver = true;
                         }
                     }
-                    else if (board.checkGameStatus() == 1) {
+                    else if (board.checkGameStatus(player.getSide()) == 1) {
                         // Player win
                         announceWinner();
                         isGameOver = true;
